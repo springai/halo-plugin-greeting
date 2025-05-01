@@ -24,7 +24,7 @@ spec:
         - $formkit: text
           name: notice_text
           label: 公告内容
-          value: '欢迎光临！🎉'
+          value: '🎉 特别公告：本站全新改版！'
           validation: required
     - group: greeting_setting
       label: 问候语设置
@@ -32,15 +32,15 @@ spec:
         - $formkit: text
           name: finalNotice_text
           label: 兜底问候语
-          value: '🎉 特别公告：本站全新改版！'
+          value: '欢迎光临！🎉'
           help: '用于处理其他时间段问候语，在下面的问候语配置时间段以外生效'
           validation: required
         - $formkit: repeater
           name: greeting_repeater
           label: 问候语配置
           value:
-            - content: '11'
-              start: 1
+            - content: '清晨的咖啡香已为您备好 ☕'
+              start: 5
               end: 11
           children:
             - $formkit: text
