@@ -1,0 +1,113 @@
+apiVersion: v1alpha1
+kind: Setting
+metadata:
+  name: greeting-setting
+spec:
+  forms:
+    - group: pattern
+      label: 模式选择
+      formSchema:
+        - $formkit: radio
+          name: pattern_setting
+          label: 默认模式
+          value: 'notice'
+          validation: required
+          options:
+            - label: 公告
+              value: 'notice'
+            - label: 问候语
+              value: 'greeting'
+
+    - group: notice_setting
+      label: 公告设置
+      formSchema:
+        - $formkit: text
+          name: notice_text
+          label: 公告内容
+          value: '欢迎光临！🎉'
+          validation: required
+    - group: greeting_setting
+      label: 问候语设置
+      formSchema:
+        - $formkit: text
+          name: finalNotice_text
+          label: 兜底问候语
+          value: '🎉 特别公告：本站全新改版！'
+          help: '用于处理其他时间段问候语，在下面的问候语配置时间段以外生效'
+          validation: required
+        - $formkit: repeater
+          name: greeting_repeater
+          label: 问候语配置
+          value:
+            - content: '11'
+              start: 1
+              end: 11
+          children:
+            - $formkit: text
+              name: content
+              label: 内容
+              validation: required
+            - $formkit: number
+              name: start
+              label: 开始时间
+              number: integer
+              validation: required|min:0|max:23
+              help: "范围0-23"
+            - $formkit: number
+              name: end
+              label: 结束时间
+              number: integer
+              validation: required|min:0|max:23
+              help: "范围0-23"
+    - group: style_setting
+      label: 样式设置
+      formSchema:
+        - $formkit: number
+          name: top
+          label: 距离顶部(px)
+          value: 20
+          validation: required
+          help: '填数字即可，例如：20'
+        - $formkit: number
+          name: left
+          label: 距离左边(%)
+          value: 50
+          validation: required
+          help: '填数字即可，例如：50'
+        - $formkit: number
+          name: radius
+          label: 圆角(px)
+          value: 20
+          validation: required
+          help: '填数字即可，例如：20'
+        - $formkit: text
+          name: padding
+          label: padding
+          value: '5px 20px'
+          validation: required
+          help: '没有进行参数限制，请务必正确填写，否则将无法正常使用，例如：5px 20px'
+        - $formkit: number
+          name: fontSize
+          label: 字体大小(px)
+          value: 14
+          help: '填数字即可，例如：14'
+          validation: required
+        - $formkit: number
+          name: displaySeconds
+          label: 显示时长(秒)
+          value: 2
+          validation: required
+          help: '填数字即可，例如：2'
+        - $formkit: color
+          name: background_color
+          label: 背景颜色
+          value: "#000000"
+          validation: required
+          help: '气泡框背景颜色'
+        - $formkit: color
+          name: font_color
+          label: 字体颜色
+          value: "#ffffff"
+
+          validation: required
+          help: '字体颜色'

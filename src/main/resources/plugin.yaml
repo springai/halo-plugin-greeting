@@ -4,19 +4,21 @@ apiVersion: plugin.halo.run/v1alpha1
 kind: Plugin
 metadata:
   # The name defines how the plugin is invoked, A unique name
-  name: starter
+  name: plugin-greeting
 spec:
   enabled: true
   requires: ">=2.20.0"
   author:
-    name: Halo
-    website: https://github.com/halo-dev
+    name: 星风之痕
+    website: https://github.com/springai
   logo: logo.png
-  homepage: https://github.com/halo-dev/plugin-starter#readme
-  repo: https://github.com/halo-dev/plugin-starter
-  issues: https://github.com/halo-dev/plugin-starter/issues
-  displayName: "插件快速开始模板"
-  description: "这是一个插件快速开始模板"
+  homepage: https://github.com/springai/halo-plugin-greeting
+  repo: https://github.com/springai/halo-plugin-greeting
+  issues: https://github.com/springai/halo-plugin-greeting/issues
+  settingName: greeting-setting
+  configMapName: greeting-setting-configMap
+  displayName: "plugin-greeting"
+  description: "halo主页气泡提示框-可自定义时间、问候语、公告的插件"
   license:
     - name: "GPL-3.0"
-      url: "https://github.com/halo-dev/plugin-starter/blob/main/LICENSE"
+      url: "https://github.com/springai/halo-plugin-greeting/blob/main/LICENSE"
