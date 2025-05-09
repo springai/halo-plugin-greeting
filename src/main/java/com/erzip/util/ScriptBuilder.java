@@ -9,7 +9,7 @@ public class ScriptBuilder {
 
     public static String buildStyleVariables(ToastConfig config) {
         return String.format(
-            "const styleConfig = {\n" +
+            "const desktopStyleConfig = {\n" +
                 "  position: '%s',\n" +
                 "  top: '%s',\n" +
                 "  left: '%s',\n" +
@@ -19,11 +19,19 @@ public class ScriptBuilder {
                 "  padding: '%s',\n" +
                 "  borderRadius: '%s',\n" +
                 "  fontSize: '%s',\n" +
-                "  zIndex: '%s'\n" +
+                "  zIndex: '%s',\n" +
+                "  maxWidth: '%s'\n" +
+                "};\n" +
+                "const mobileStyleConfig = {\n" +
+                "  top: '%s',\n" +
+                "  maxWidth: '%s',\n" +
+                "  fontSize: '%s',\n" +
+                "  borderRadius: '%s',\n" +
+                "  padding: '%s'\n" +
                 "};\n" +
                 "const animationConfig = {\n" +
                 "  name: '%s',\n" +
-                "  duration: %d,\n" +
+                "  duration: %s,\n" +
                 "  timing: '%s'\n" +
                 "};",
             config.position(),
@@ -36,6 +44,14 @@ public class ScriptBuilder {
             config.borderRadius(),
             config.fontSize(),
             config.zIndex(),
+            config.maxWidth(),
+            // 移动端配置
+            config.mobileTop(),
+            config.mobileMaxWidth(),
+            config.mobileFontSize(),
+            config.mobileBorderRadius(),
+            config.mobilePadding(),
+            // 动画配置
             config.animationName(),
             config.displaySeconds() * 1000,
             config.animationTiming()
@@ -88,28 +104,39 @@ public class ScriptBuilder {
                 "    if (['/', '/index.html'].includes(window.location.pathname)) {\n" +
                 "      %s\n" +  // styleVars
                 "      %s\n" +  // jsLogic
+                "      const isMobile = window.matchMedia('(max-width: 768px)').matches;\n" +
+                "      const currentStyle = {\n" +
+                "        ...desktopStyleConfig,\n" +
+                "        ...(isMobile ? mobileStyleConfig : {})\n" +
+                "      };\n" +
                 "      const toast = document.createElement('div');\n" +
                 "      toast.textContent = greeting;\n" +
                 "      toast.style = `\n" +
-                "        position: ${styleConfig.position};\n" +
-                "        top: ${styleConfig.top};\n" +
-                "        left: ${styleConfig.left};\n" +
-                "        transform: translateX(${styleConfig.translateX});\n" +
-                "        background: ${styleConfig.background};\n" +
-                "        color: ${styleConfig.color};\n" +
-                "        padding: ${styleConfig.padding};\n" +
-                "        border-radius: ${styleConfig.borderRadius};\n" +
-                "        font-size: ${styleConfig.fontSize};\n" +
-                "        z-index: ${styleConfig.zIndex};\n" +
+                "        position: ${currentStyle.position};\n" +
+                "        top: ${currentStyle.top};\n" +
+                "        left: ${currentStyle.left};\n" +
+                "        transform: translateX(${currentStyle.translateX});\n" +
+                "        background: ${currentStyle.background};\n" +
+                "        color: ${currentStyle.color};\n" +
+                "        padding: ${currentStyle.padding};\n" +
+                "        border-radius: ${currentStyle.borderRadius};\n" +
+                "        font-size: ${currentStyle.fontSize};\n" +
+                "        z-index: ${currentStyle.zIndex};\n" +
+                "        max-width: ${currentStyle.maxWidth};\n" +
+                "        white-space: pre-wrap;\n" +
+                "        overflow-wrap: break-word;\n" +
                 "        animation: ${animationConfig.name} ${animationConfig.duration}ms ${animationConfig.timing};\n" +
+                "        animation-fill-mode: forwards;\n" +
                 "      `;\n" +
                 "      document.body.appendChild(toast);\n" +
-                "      setTimeout(() => toast.remove(), animationConfig.duration);\n" +
+                "      toast.addEventListener('animationend', () => {\n" +
+                "        toast.remove();\n" +
+                "      });\n" +
                 "    }\n" +
                 "  });\n" +
                 "</script>\n" +
                 "<style>\n" +
-                "  @keyframes %s {\n" +  // animationName
+                "  @keyframes %s {\n" +
                 "    0%% { opacity: 0; transform: translateX(-50%%) translateY(-10px); }\n" +
                 "    20%% { opacity: 1; transform: translateX(-50%%) translateY(0); }\n" +
                 "    80%% { opacity: 1; transform: translateX(-50%%) translateY(0); }\n" +

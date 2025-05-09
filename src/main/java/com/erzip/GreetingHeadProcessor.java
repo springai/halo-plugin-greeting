@@ -29,13 +29,15 @@ public class GreetingHeadProcessor implements TemplateHeadProcessor {
                 settingFetcher.fetch(StyleSetting.GROUP, StyleSetting.class),
                 settingFetcher.fetch(PatternSetting.GROUP, PatternSetting.class),
                 settingFetcher.fetch(NoticeSetting.GROUP, NoticeSetting.class),
-                settingFetcher.fetch(GreetingSetting.GROUP, GreetingSetting.class)
+                settingFetcher.fetch(GreetingSetting.GROUP, GreetingSetting.class),
+                settingFetcher.fetch(MobileSetting.GROUP,MobileSetting.class)
             )
             .flatMap(tuple -> {
                 StyleSetting style = tuple.getT1();
                 PatternSetting pattern = tuple.getT2();
                 NoticeSetting notice = tuple.getT3();
                 GreetingSetting greeting = tuple.getT4();
+                MobileSetting mobileStyle = tuple.getT5();
 
                 ToastConfig config = new ToastConfig(
                     pattern.pattern_setting(),
@@ -44,6 +46,7 @@ public class GreetingHeadProcessor implements TemplateHeadProcessor {
                     "fixed",
                     style.top() + "px",
                     style.left() + "%",
+                    style.maxWidth() + "%",
                     "-50%",
                     style.background_color(),
                     style.font_color(),
@@ -53,7 +56,12 @@ public class GreetingHeadProcessor implements TemplateHeadProcessor {
                     "9999",
                     "fadeInOut",
                     style.displaySeconds(),
-                    "ease"
+                    "ease",
+                    mobileStyle.mobileTop() + "px",
+                    mobileStyle.mobileMaxWidth() + "%",
+                    mobileStyle.mobileFontSize() + "px",
+                    mobileStyle.mobileBorderRadius() + "px",
+                    mobileStyle.mobilePadding()
                 );
 
                 Map<TimeRange, String> greetings = new LinkedHashMap<>();

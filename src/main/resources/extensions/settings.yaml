@@ -75,6 +75,12 @@ spec:
           validation: required
           help: '填数字即可，例如：50'
         - $formkit: number
+          name: maxWidth
+          label: 最大宽度(%)
+          value: 50
+          validation: required
+          help: '宽度随着内容而改变，填数字即可，例如：50'
+        - $formkit: number
           name: radius
           label: 圆角(px)
           value: 20
@@ -83,9 +89,9 @@ spec:
         - $formkit: text
           name: padding
           label: padding
-          value: '5px 20px'
+          value: '8px 20px'
           validation: required
-          help: '没有进行参数限制，请务必正确填写，否则将无法正常使用，例如：5px 20px'
+          help: '没有进行参数限制，请务必正确填写，否则将无法正常使用，例如：8px 20px'
         - $formkit: number
           name: fontSize
           label: 字体大小(px)
@@ -95,9 +101,9 @@ spec:
         - $formkit: number
           name: displaySeconds
           label: 显示时长(秒)
-          value: 2
-          validation: required
-          help: '填数字即可，例如：2'
+          value: 2.5
+          validation: required|min:0|max:30
+          help: '填数字即可，例如：2.5'
         - $formkit: color
           name: background_color
           label: 背景颜色
@@ -108,6 +114,38 @@ spec:
           name: font_color
           label: 字体颜色
           value: "#ffffff"
-
           validation: required
           help: '字体颜色'
+    - group: mobile_setting
+      label: 手机端样式优化
+      formSchema:
+        - $formkit: number
+          name: mobileTop
+          label: 手机端距离顶部(px)
+          value: 20
+          validation: required
+          help: '填数字即可，例如：20'
+        - $formkit: number
+          name: mobileMaxWidth
+          label: 手机端最大宽度(%)
+          value: 50
+          validation: required
+          help: '宽度随着内容而改变，填数字即可，例如：50'
+        - $formkit: number
+          name: mobileFontSize
+          label: 手机端字体大小(px)
+          value: 10
+          help: '填数字即可，例如：10'
+          validation: required
+        - $formkit: number
+          name: mobileBorderRadius
+          label: 手机端圆角(px)
+          value: 20
+          validation: required
+          help: '填数字即可，例如：20'
+        - $formkit: text
+          name: mobilePadding
+          label: 手机端padding
+          value: '8px 20px'
+          validation: required
+          help: '没有进行参数限制，请务必正确填写，否则将无法正常使用，例如：8px 20px'
