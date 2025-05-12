@@ -10,7 +10,7 @@
 
 ## 使用方法
 1. 下载jar包  
-   进入[releases](https://github.com/springai/halo-plugin-greeting/releases)页面下载对应版本的jar包，
+   进入[releases](https://github.com/springai/halo-plugin-greeting/releases)页面下载Assets中的jar包，
 2. 安装jar包  
    下载jar包后，进入Halo后台插件页面点击右上角的安装，选择本地上传即可
 
