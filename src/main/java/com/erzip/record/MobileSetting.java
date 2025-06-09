@@ -6,6 +6,7 @@ public record MobileSetting(
     Integer mobileMaxWidth,
     Integer mobileFontSize,
     Integer mobileBorderRadius,
+    String mobileNoticePadding,
     String mobilePadding
 ) {
     public static final String GROUP = "mobile_setting";

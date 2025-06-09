@@ -17,7 +17,6 @@ spec:
               value: 'notice'
             - label: 问候语
               value: 'greeting'
-
     - group: notice_setting
       label: 公告设置
       formSchema:
@@ -26,6 +25,64 @@ spec:
           label: 公告内容
           value: '🎉 特别公告：本站全新改版！'
           validation: required
+    - group: style_setting_notice
+      label: 公告样式设置
+      formSchema:
+        - $formkit: color
+          name: background_color
+          label: 背景颜色
+          value: "#000000"
+          validation: required
+          help: '气泡框背景颜色'
+        - $formkit: number
+          name: opacity
+          label: 透明度
+          value: 1.0
+          step: 0.1
+          validation: required|min:0|max:1
+          help: '背景颜色透明度,设定范围0.0-1.0'
+        - $formkit: color
+          name: font_color
+          label: 字体颜色
+          value: "#ffffff"
+          validation: required
+          help: '字体颜色'
+        - $formkit: number
+          name: fontSize
+          label: 字体大小(px)
+          value: 12
+          help: '填数字即可，例如：12'
+          validation: required
+        - $formkit: number
+          name: top
+          label: 距离顶部(px)
+          value: 15
+          validation: required
+          help: '填数字即可，例如：15'
+        - $formkit: number
+          name: left
+          label: 距离左边(%)
+          value: 50
+          validation: required
+          help: '填数字即可，例如：50'
+        - $formkit: number
+          name: maxWidth
+          label: 最大宽度(%)
+          value: 50
+          validation: required
+          help: '宽度随着内容而改变，填数字即可，例如：50'
+        - $formkit: number
+          name: radius
+          label: 圆角(px)
+          value: 20
+          validation: required
+          help: '填数字即可，例如：20'
+        - $formkit: text
+          name: padding
+          label: padding
+          value: '1px 2px'
+          validation: required
+          help: '没有进行参数限制，请务必正确填写，否则将无法正常使用，例如：1px 2px'
     - group: greeting_setting
       label: 问候语设置
       formSchema:
@@ -151,8 +208,14 @@ spec:
           validation: required
           help: '填数字即可，例如：20'
         - $formkit: text
+          name: mobileNoticePadding
+          label: 手机端公告padding
+          value: '1px 2px'
+          validation: required
+          help: '没有进行参数限制，请务必正确填写，否则将无法正常使用，例如：1px 2px'
+        - $formkit: text
           name: mobilePadding
-          label: 手机端padding
+          label: 手机端问候语padding
           value: '8px 20px'
           validation: required
           help: '没有进行参数限制，请务必正确填写，否则将无法正常使用，例如：8px 20px'

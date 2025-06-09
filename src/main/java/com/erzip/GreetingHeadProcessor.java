@@ -27,44 +27,22 @@ public class GreetingHeadProcessor implements TemplateHeadProcessor {
 
         return Mono.zip(
                 settingFetcher.fetch(GreetingStyleSetting.GROUP, GreetingStyleSetting.class),
+                settingFetcher.fetch(NoticeStyleSetting.GROUP, NoticeStyleSetting.class),
                 settingFetcher.fetch(PatternSetting.GROUP, PatternSetting.class),
                 settingFetcher.fetch(NoticeSetting.GROUP, NoticeSetting.class),
                 settingFetcher.fetch(GreetingSetting.GROUP, GreetingSetting.class),
-                settingFetcher.fetch(MobileSetting.GROUP,MobileSetting.class)
+                settingFetcher.fetch(MobileSetting.GROUP, MobileSetting.class)
             )
             .flatMap(tuple -> {
                 GreetingStyleSetting style = tuple.getT1();
-                PatternSetting pattern = tuple.getT2();
-                NoticeSetting notice = tuple.getT3();
-                GreetingSetting greeting = tuple.getT4();
-                MobileSetting mobileStyle = tuple.getT5();
+                NoticeStyleSetting noticeStyle = tuple.getT2();
+                PatternSetting pattern = tuple.getT3();
+                NoticeSetting notice = tuple.getT4();
+                GreetingSetting greeting = tuple.getT5();
+                MobileSetting mobileStyle = tuple.getT6();
 
-                ToastConfig config = new ToastConfig(
-                    pattern.pattern_setting(),
-                    notice.notice_text(),
-                    greeting.finalNotice_text(),
-                    "fixed",
-                    style.top() + "px",
-                    style.left() + "%",
-                    style.maxWidth() + "%",
-                    "-50%",
-                    style.background_color(),
-                    style.font_color(),
-                    style.padding(),
-                    style.radius() + "px",
-                    style.fontSize() + "px",
-                    "9999",
-                    "fadeInOut",
-                    style.displaySeconds(),
-                    "ease",
-                    style.opacity(),
-                    mobileStyle.mobileTop() + "px",
-                    mobileStyle.mobileMaxWidth() + "%",
-                    mobileStyle.mobileFontSize() + "px",
-                    mobileStyle.mobileBorderRadius() + "px",
-                    mobileStyle.mobilePadding()
-                );
-
+                ToastConfig config;
+                config = InitConfig(style, noticeStyle, pattern, notice, greeting, mobileStyle);
                 Map<TimeRange, String> greetings = new LinkedHashMap<>();
                 greeting.greeting_repeater().forEach(e ->
                     greetings.put(new TimeRange(e.start(), e.end()), e.content())
@@ -78,5 +56,42 @@ public class GreetingHeadProcessor implements TemplateHeadProcessor {
                 return Mono.empty();
             })
             .then();
+    }
+
+
+    private ToastConfig InitConfig(
+        GreetingStyleSetting style,
+        NoticeStyleSetting noticeStyle,
+        PatternSetting pattern,
+        NoticeSetting notice,
+        GreetingSetting greeting,
+        MobileSetting mobileStyle
+    ) {
+        Boolean type = "notice".equals(pattern.pattern_setting());
+        return new ToastConfig(
+            pattern.pattern_setting(),
+            notice.notice_text(),
+            greeting.finalNotice_text(),
+            "fixed",
+            type? noticeStyle.top() + "px" : style.top() + "px",
+            type? noticeStyle.left() + "%" : style.left() + "%",
+            type? noticeStyle.maxWidth() + "%" : style.maxWidth() + "%",
+            "-50%",
+            type? noticeStyle.background_color() : style.background_color(),
+            type? noticeStyle.font_color() : style.font_color(),
+            type? noticeStyle.padding() : style.padding(),
+            type? noticeStyle.radius() + "px" : style.radius() + "px",
+            type? noticeStyle.fontSize() + "px" : style.fontSize() + "px",
+            "9999",
+            "fadeInOut",
+            type? 0f : style.displaySeconds(),
+            "ease",
+            type? noticeStyle.opacity() : style.opacity(),
+            mobileStyle.mobileTop() + "px",
+            mobileStyle.mobileMaxWidth() + "%",
+            mobileStyle.mobileFontSize() + "px",
+            mobileStyle.mobileBorderRadius() + "px",
+            mobileStyle.mobileNoticePadding()
+        );
     }
 }
