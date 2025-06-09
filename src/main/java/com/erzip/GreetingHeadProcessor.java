@@ -91,7 +91,7 @@ public class GreetingHeadProcessor implements TemplateHeadProcessor {
             mobileStyle.mobileMaxWidth() + "%",
             mobileStyle.mobileFontSize() + "px",
             mobileStyle.mobileBorderRadius() + "px",
-            mobileStyle.mobileNoticePadding()
+            type?mobileStyle.mobileNoticePadding(): mobileStyle.mobilePadding()
         );
     }
 }
