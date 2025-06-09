@@ -5,7 +5,7 @@ plugins {
     id "run.halo.plugin.devtools" version "0.2.0"
 }
 
-group 'run.halo.starter'
+group 'com.erzip.greeting'
 sourceCompatibility = JavaVersion.VERSION_17
 
 repositories {
@@ -52,5 +52,5 @@ build {
 }
 
 halo {
-    version = '2.20'
+    version = '2.21.0-alpha.1'
 }

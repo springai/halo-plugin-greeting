@@ -12,8 +12,8 @@ importers:
         specifier: ^2.17.0
         version: 2.17.0(axios@1.7.2)
       '@halo-dev/components':
-        specifier: ^2.17.0
-        version: 2.17.0(vue-router@4.2.5(vue@3.4.31(typescript@5.5.3)))(vue@3.4.31(typescript@5.5.3))
+        specifier: https://pkg.pr.new/@halo-dev/components@7383
+        version: https://pkg.pr.new/@halo-dev/components@7383(vue-router@4.2.5(vue@3.4.31(typescript@5.5.3)))(vue@3.4.31(typescript@5.5.3))
       '@halo-dev/console-shared':
         specifier: ^2.17.0
         version: 2.17.0(axios@1.7.2)(vue-router@4.2.5(vue@3.4.31(typescript@5.5.3)))(vue@3.4.31(typescript@5.5.3))
@@ -299,10 +299,11 @@ packages:
     peerDependencies:
       axios: ^1.7.x
 
-  '@halo-dev/components@2.17.0':
-    resolution: {integrity: sha512-yujCVNfpZA1HjpilxD1Dzkh5Ge54u9hcIyuGj7Mr8hNHAY1xgiVo0uvuYwm8ik5/njI9HED4GXR2JIreSu/PeA==}
+  '@halo-dev/components@https://pkg.pr.new/@halo-dev/components@7383':
+    resolution: {tarball: https://pkg.pr.new/@halo-dev/components@7383}
+    version: 2.21.0
     peerDependencies:
-      vue: ^3.4.27
+      vue: ^3.5.13
       vue-router: ^4.3.2
 
   '@halo-dev/console-shared@2.17.0':
@@ -2030,7 +2031,7 @@ snapshots:
     dependencies:
       axios: 1.7.2
 
-  '@halo-dev/components@2.17.0(vue-router@4.2.5(vue@3.4.31(typescript@5.5.3)))(vue@3.4.31(typescript@5.5.3))':
+  '@halo-dev/components@https://pkg.pr.new/@halo-dev/components@7383(vue-router@4.2.5(vue@3.4.31(typescript@5.5.3)))(vue@3.4.31(typescript@5.5.3))':
     dependencies:
       floating-vue: 5.2.2(vue@3.4.31(typescript@5.5.3))
       vue: 3.4.31(typescript@5.5.3)

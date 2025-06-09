@@ -26,14 +26,14 @@ public class GreetingHeadProcessor implements TemplateHeadProcessor {
         IElementModelStructureHandler structureHandler) {
 
         return Mono.zip(
-                settingFetcher.fetch(StyleSetting.GROUP, StyleSetting.class),
+                settingFetcher.fetch(GreetingStyleSetting.GROUP, GreetingStyleSetting.class),
                 settingFetcher.fetch(PatternSetting.GROUP, PatternSetting.class),
                 settingFetcher.fetch(NoticeSetting.GROUP, NoticeSetting.class),
                 settingFetcher.fetch(GreetingSetting.GROUP, GreetingSetting.class),
                 settingFetcher.fetch(MobileSetting.GROUP,MobileSetting.class)
             )
             .flatMap(tuple -> {
-                StyleSetting style = tuple.getT1();
+                GreetingStyleSetting style = tuple.getT1();
                 PatternSetting pattern = tuple.getT2();
                 NoticeSetting notice = tuple.getT3();
                 GreetingSetting greeting = tuple.getT4();
@@ -57,6 +57,7 @@ public class GreetingHeadProcessor implements TemplateHeadProcessor {
                     "fadeInOut",
                     style.displaySeconds(),
                     "ease",
+                    style.opacity(),
                     mobileStyle.mobileTop() + "px",
                     mobileStyle.mobileMaxWidth() + "%",
                     mobileStyle.mobileFontSize() + "px",
@@ -66,7 +67,7 @@ public class GreetingHeadProcessor implements TemplateHeadProcessor {
 
                 Map<TimeRange, String> greetings = new LinkedHashMap<>();
                 greeting.greeting_repeater().forEach(e ->
-                    greetings.put(new TimeRange(e.getStart(), e.getEnd()), e.getContent())
+                    greetings.put(new TimeRange(e.start(), e.end()), e.content())
                 );
 
                 String styleVars = ScriptBuilder.buildStyleVariables(config);

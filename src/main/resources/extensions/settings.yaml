@@ -59,8 +59,8 @@ spec:
               number: integer
               validation: required|min:0|max:23
               help: "范围0-23"
-    - group: style_setting
-      label: 样式设置
+    - group: style_setting_greeting
+      label: 问候语样式设置
       formSchema:
         - $formkit: number
           name: top
@@ -110,6 +110,13 @@ spec:
           value: "#000000"
           validation: required
           help: '气泡框背景颜色'
+        - $formkit: number
+          name: opacity
+          label: 透明度
+          value: 1.0
+          step: 0.1
+          validation: required|min:0|max:1
+          help: '背景颜色透明度,设定范围0.0-1.0'
         - $formkit: color
           name: font_color
           label: 字体颜色

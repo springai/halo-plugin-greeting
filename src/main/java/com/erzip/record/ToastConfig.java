@@ -18,6 +18,7 @@ public record ToastConfig(
     String animationName,
     Float displaySeconds,
     String animationTiming,
+    Float opacity,
     // 新增移动端配置方法
     String mobileTop,
     String mobileMaxWidth,
